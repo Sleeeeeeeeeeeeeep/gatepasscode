@@ -1,4 +1,4 @@
-name: Update and Deploy to Pages
+name: Test GatePasscode
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          git clone https://github.com/TorCroft/gatepasscode.git
+          git clone --depth 1 https://github.com/TorCroft/gatepasscode.git
           requirements_file="./gatepasscode/requirements.txt"
           if [ -f $requirements_file ]; then pip install -r $requirements_file; fi
 
@@ -31,8 +31,9 @@ jobs:
         env:
           UID_PWD: ${{ secrets.UID_PWD }}
         run: |
+          python test.py
           cd gatepasscode
-          python3 ./index.py
+          python ./index.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
