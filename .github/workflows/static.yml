@@ -30,12 +30,10 @@ jobs:
       - name: Run Python Script
         env:
           UID_PWD: ${{ secrets.UID_PWD }}
-        run: python3 ./index.py
-        
-      - name: Check for changes
-        id: check_changes
-        run: echo "changes=$(git diff --shortstat HEAD)" >> $GITHUB_OUTPUT
-      
+        run: |
+          cd gatepasscode
+          python3 ./index.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
